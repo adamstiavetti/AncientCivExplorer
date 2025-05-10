@@ -38,11 +38,9 @@ public class AncientSite {
 
     private String region;
 
-    private Integer startYear;
+    private Integer yearBuilt;
 
-    private Integer endYear;
-
-    private Integer discoveryYear;
+    private String discoveryYear;
 
     private String credibilityLevel;
 

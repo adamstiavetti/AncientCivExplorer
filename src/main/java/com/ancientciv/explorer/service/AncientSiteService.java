@@ -40,8 +40,7 @@ public class AncientSiteService {
         site.setDescription(updatedSite.getDescription());
         site.setRegion(updatedSite.getRegion());
         site.setEra(updatedSite.getEra());
-        site.setStartYear(updatedSite.getStartYear());
-        site.setEndYear(updatedSite.getEndYear());
+        site.setYearBuilt(updatedSite.getYearBuilt());
         site.setDiscoveryYear(updatedSite.getDiscoveryYear());
         site.setCredibilityLevel(updatedSite.getCredibilityLevel());
         site.setIsAlternative(updatedSite.getIsAlternative());
