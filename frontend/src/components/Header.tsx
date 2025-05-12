@@ -12,9 +12,8 @@ import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from '@mui/icons-material/Search';
 import {ThemeProvider, createTheme} from "@mui/material";
 import {useState} from "react";
-import {Form, useNavigate} from "react-router-dom";
-import {ancientSite} from "../types/ancientSite.ts";
-import axios from "axios";
+import {useNavigate} from "react-router-dom";
+
 import {searchAncientSites} from "../services/AncientSiteService.ts";
 
 const Search = styled('div')(({ theme }) => ({
@@ -84,10 +83,9 @@ export default function Header() {
         e.preventDefault();
 
         const results = await searchAncientSites(query);
-        // Option A: Store and show results in another page
+
         navigate(`/search-results`, { state: { results } });
 
-        // Option B: OR handle rendering directly here (dropdown or modal)
     };
 
     return (

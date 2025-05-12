@@ -3,6 +3,7 @@ import { Viewer } from "resium";
 import { Viewer as CesiumViewer, Cartesian3 } from "cesium"
 import type { CesiumComponentRef } from "resium";
 import {SiteCardStack} from "./SiteCardStack.tsx";
+import {ancientSite} from "../types/ancientSite.ts";
 
 export type GlobeHandle = {
     flyToSite: (lat: number, lon: number) => void;
@@ -24,9 +25,12 @@ const Globe = forwardRef<GlobeHandle>((_, ref) => {
     }));
 
     return (
-        <><SiteCardStack onNavigate={function (latitude: number, longitutde: number): void {
-            throw new Error("Function not implemented.");
-        }} ancientSite={[]}/>
+        <>
+        {/*    <SiteCardStack*/}
+        {/*    onNavigate={function (lat: number, lon: number, site: ancientSite): void {*/}
+        {/*    throw new Error("Function not implemented.");*/}
+        {/*}}*/}
+        {/*   />*/}
         <div style={{ height: "calc(100vh - 64px)", width: "100vw", marginTop: "64px" }}>
             <Viewer
                 ref={viewerRef}

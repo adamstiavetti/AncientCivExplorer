@@ -9,12 +9,13 @@ const EXPANDED_HEIGHT = 270;
 
 type Props = {
     site: ancientSite[]
-    onNavigate: (lat: number, lon: number) => void;
+    onNavigate: (lat: number, lon: number, site: ancientSite) => void;
     onEdit: (id: number | undefined) => void;
     onDelete: (id: number) => void;
+    onSelectSite: (site: ancientSite) => void;
 };
 
-export const SiteCardStack = ({ onNavigate, onEdit }: Props) => {
+export const SiteCardStack = ({ onNavigate, onEdit, onSelectSite }: Props) => {
     const listRef = useRef<List>(null);
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
     const [sites, setSites] = useState<ancientSite[]>([]);
@@ -46,6 +47,7 @@ export const SiteCardStack = ({ onNavigate, onEdit }: Props) => {
 
     const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
         const site = sites[index];
+
         return (
             <div style={style} key={site.id}>
                 <Accordion
@@ -61,7 +63,9 @@ export const SiteCardStack = ({ onNavigate, onEdit }: Props) => {
                     <AccordionActions>
                         <Button onClick={() => handleDelete(site.id!)}>Delete</Button>
                         <Button onClick={() => onEdit(site.id)}>Edit</Button>
-                        <Button onClick={() => onNavigate(site.latitude, site.longitude)}>
+                        <Button onClick={() => {
+                            onNavigate(site.latitude, site.longitude, site);
+                            onSelectSite(site)}}>
                             Navigate
                         </Button>
                     </AccordionActions>
@@ -71,11 +75,11 @@ export const SiteCardStack = ({ onNavigate, onEdit }: Props) => {
     };
 
     return (
-        <div style={{ height: 400, width: 260, position: 'absolute', top: 150, right: 0, zIndex: 1000,  }}>
+        <div style={{ height: 400, width: 260, position: 'absolute', top: 150, right: 20, zIndex: 1000,  }}>
 
             <List
                 height={600}
-                width={240}
+                width={250}
                 itemCount={sites.length}
                 itemSize={getItemSize}
                 itemData={""}
