@@ -4,6 +4,7 @@ import com.ancientciv.explorer.dto.AncientSiteDTO;
 import com.ancientciv.explorer.dto.CreateAncientSiteRequest;
 import com.ancientciv.explorer.entities.AncientSite;
 import com.ancientciv.explorer.entities.SiteType;
+import com.ancientciv.explorer.repository.AncientSiteRepository;
 import com.ancientciv.explorer.repository.SiteTypeRepository;
 import com.ancientciv.explorer.service.AncientSiteService;
 import org.springframework.http.HttpStatus;
@@ -19,10 +20,12 @@ import java.util.List;
 public class AncientSiteController {
     private final AncientSiteService ancientSiteService;
     private final SiteTypeRepository siteTypeRepository;
+    private final AncientSiteRepository ancientSiteRepository;
 
-    public AncientSiteController(AncientSiteService ancientSiteService, SiteTypeRepository siteTypeRepository) {
+    public AncientSiteController(AncientSiteService ancientSiteService, SiteTypeRepository siteTypeRepository, AncientSiteRepository ancientSiteRepository) {
         this.ancientSiteService = ancientSiteService;
         this.siteTypeRepository = siteTypeRepository;
+        this.ancientSiteRepository = ancientSiteRepository;
     }
 
     @PostMapping
@@ -60,6 +63,11 @@ public class AncientSiteController {
         return ancientSiteService.getSiteById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/search")
+    public List<AncientSite> searchSites(@RequestParam("query") String query) {
+    return ancientSiteService.searchByNameOrType(query);
     }
 
     @PutMapping("/{id}")

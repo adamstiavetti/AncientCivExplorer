@@ -9,7 +9,6 @@ import {useEffect, useState} from "react";
 import {
     createAncientSite,
     fetchAncientSiteById,
-    fetchAncientSites,
     updateAncientSite
 } from "../services/AncientSiteService.ts";
 import {useNavigate, useParams} from "react-router-dom";
@@ -329,8 +328,8 @@ export default function AddDiscoveryForm() {
                     name="credibilityLevel"
                 >
                     <FormControlLabel value="speculative" control={<Radio />} label="Speculative" />
+                    <FormControlLabel value="moderate" control={<Radio />} label="Moderate" />
                     <FormControlLabel value="high" control={<Radio />} label="High" />
-                    <FormControlLabel value="certain" control={<Radio />} label="Certain" />
                 </RadioGroup>
             </FormControl>
 

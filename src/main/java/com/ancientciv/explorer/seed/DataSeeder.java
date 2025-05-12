@@ -71,35 +71,36 @@ public class DataSeeder {
 
 
     private void seedAncientSites(Map<String, SiteType> siteTypeMap) throws Exception {
+        ancientSiteRepository.deleteAll(); // Clears the table before seeding
+
         var resource = new ClassPathResource("seed/ancient_sites.csv");
         try (CSVReader reader = new CSVReader(new InputStreamReader(resource.getInputStream()))) {
             String[] line;
             reader.readNext(); // Skip header
             while ((line = reader.readNext()) != null) {
-                Long id = Long.parseLong(line[0]);
-                String name = line[1];
-                String description = line[2];
-                double latitude = Double.parseDouble(line[3]);
-                double longitude = Double.parseDouble(line[4]);
-                String imageUrl = line[5];
-                String region = line[6];
-                String era = line[7];
-                int yearBuilt = parseOrDefault(line[8], 0);
-                String discoveryYear = line[10];
-                String credibilityLevel = line[11];
-                boolean isAlternative = Boolean.parseBoolean(line[12]);
-                boolean isDeleted = Boolean.parseBoolean(line[13]);
-                boolean isUserSubmitted = Boolean.parseBoolean(line[14]);
-                String siteTypeName = line[15];
+                String name = line[0];
+                String description = line[1];
+                double latitude = Double.parseDouble(line[2]);
+                double longitude = Double.parseDouble(line[3]);
+                String imageUrl = line[4];
+                String region = line[5];
+                String era = line[6];
+                int yearBuilt = parseOrDefault(line[7], 0);
+                String discoveryYear = line[8];
+                String credibilityLevel = line[9];
+                boolean isAlternative = Boolean.parseBoolean(line[10]);
+                boolean isDeleted = Boolean.parseBoolean(line[11]);
+                boolean isUserSubmitted = Boolean.parseBoolean(line[12]);
+                int siteTypeId = Integer.parseInt(line[13]);
 
-                SiteType siteType = siteTypeMap.get(siteTypeName);
+                SiteType siteType = siteTypeRepository.findById((long) siteTypeId).orElse(null);
                 if (siteType == null){
-                    System.err.println("Skipped, site: could not find sitetype " + siteTypeName);
+                    System.err.println("Skipped, site: could not find sitetype " + siteTypeId);
                     continue;
                 }
 
-                if (ancientSiteRepository.findById(id).isEmpty()) {
                     AncientSite site = AncientSite.builder()
+
                             .name(name)
                             .description(description)
                             .latitude(latitude)
@@ -123,4 +124,3 @@ public class DataSeeder {
             System.out.println("Seeded ancient sites.");
         }
     }
-}

@@ -1,5 +1,6 @@
 package com.ancientciv.explorer.service;
 
+import com.ancientciv.explorer.dto.AncientSiteDTO;
 import com.ancientciv.explorer.entities.AncientSite;
 import com.ancientciv.explorer.repository.AncientSiteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import com.ancientciv.explorer.exception.SiteNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class AncientSiteService {
@@ -58,5 +60,9 @@ public class AncientSiteService {
 
         site.setIsDeleted(true);
         ancientSiteRepository.save(site);
+    }
+
+    public List<AncientSite> searchByNameOrType(String query) {
+        return ancientSiteRepository.searchByNameOrSiteType(query);
     }
 }

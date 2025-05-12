@@ -50,3 +50,23 @@ export async function updateAncientSite(site: ancientSite): Promise<ancientSite>
         throw error;
     }
 }
+
+export async function deleteAncientSite(id: number): Promise<void> {
+    return axios.delete(`/api/sites/${id}`)
+        .then(() => {
+            console.log("Ancient Site Deleted");
+        })
+        .catch((error) => {
+            console.error("Could not delete ancient site", error);
+            throw error;
+        });
+}
+
+export async function searchAncientSites(query: string): Promise<ancientSite[]> {
+    return axios.get(`api/sites/search?query=${query}`)
+        .then(res => res.data)
+        .catch(err => {
+            console.error("Search failed", err);
+            return[]
+        })
+}

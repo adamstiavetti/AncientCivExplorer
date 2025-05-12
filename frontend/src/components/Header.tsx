@@ -1,5 +1,4 @@
 
-
 import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -13,7 +12,10 @@ import MenuItem from "@mui/material/MenuItem";
 import SearchIcon from '@mui/icons-material/Search';
 import {ThemeProvider, createTheme} from "@mui/material";
 import {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import {Form, useNavigate} from "react-router-dom";
+import {ancientSite} from "../types/ancientSite.ts";
+import axios from "axios";
+import {searchAncientSites} from "../services/AncientSiteService.ts";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -68,6 +70,7 @@ const darkTheme = createTheme({
 export default function Header() {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+    const [query, setQuery] = useState("");
     const open = Boolean(anchorEl)
     const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
@@ -76,6 +79,17 @@ export default function Header() {
     const handleClose = () => {
         setAnchorEl(null);
     }
+
+    const handleSearch = async (e: React.FormEvent) => {
+        e.preventDefault();
+
+        const results = await searchAncientSites(query);
+        // Option A: Store and show results in another page
+        navigate(`/search-results`, { state: { results } });
+
+        // Option B: OR handle rendering directly here (dropdown or modal)
+    };
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <ThemeProvider theme={darkTheme}>
@@ -120,15 +134,19 @@ export default function Header() {
                     >
                         Ancient Earth Explorer
                     </Typography>
+                    <form onSubmit={handleSearch}>
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
+                    </form>
                 </Toolbar>
             </AppBar>
             </ThemeProvider>

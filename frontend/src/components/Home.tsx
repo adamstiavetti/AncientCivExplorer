@@ -16,11 +16,21 @@ const Home = () => {
     const handleNavigate = (lat: number, lon: number) => {
         globeRef.current?.flyToSite(lat, lon);
     }
+
+
+
     return (
         <div>
             <Header/>
             <Globe ref={globeRef}/>
-            <SiteCardStack onNavigate={handleNavigate} ancientSite={[]} onEdit={(id) => navigate(`/edit/${id}`)}/>
+            <SiteCardStack
+                onNavigate={handleNavigate}
+                onEdit={(id) => navigate(`/edit/${id}`)}
+                site={[]}
+                onDelete={function (): void {
+                throw new Error("Function not implemented.");
+            }}
+            />
         </div>
     );
 };

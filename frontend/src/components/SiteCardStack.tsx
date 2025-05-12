@@ -3,14 +3,15 @@ import { useEffect, useRef, useState } from 'react';
 import { Accordion, AccordionActions, AccordionDetails, AccordionSummary, Button, Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ancientSite } from '../types/ancientSite.ts';
-import { fetchAncientSites } from '../services/AncientSiteService.ts';
+import {deleteAncientSite, fetchAncientSites} from '../services/AncientSiteService.ts';
 const ITEM_HEIGHT = 60;
-const EXPANDED_HEIGHT = 200;
+const EXPANDED_HEIGHT = 270;
 
 type Props = {
-    ancientSite: ancientSite[]
+    site: ancientSite[]
     onNavigate: (lat: number, lon: number) => void;
     onEdit: (id: number | undefined) => void;
+    onDelete: (id: number) => void;
 };
 
 export const SiteCardStack = ({ onNavigate, onEdit }: Props) => {
@@ -34,6 +35,15 @@ export const SiteCardStack = ({ onNavigate, onEdit }: Props) => {
         })
     };
 
+    const handleDelete = async (id: number) => {
+        try {
+            await deleteAncientSite(id);
+            setSites((prev) => prev.filter((p) => p.id !== id));
+        } catch (err) {
+            console.error("Could not delete the site")
+        }
+    }
+
     const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
         const site = sites[index];
         return (
@@ -49,7 +59,8 @@ export const SiteCardStack = ({ onNavigate, onEdit }: Props) => {
                         {site.description}
                     </AccordionDetails>
                     <AccordionActions>
-                        <Button onClick={() => onEdit(site.id)} style={{marginRight: '70px'}}>Edit</Button>
+                        <Button onClick={() => handleDelete(site.id!)}>Delete</Button>
+                        <Button onClick={() => onEdit(site.id)}>Edit</Button>
                         <Button onClick={() => onNavigate(site.latitude, site.longitude)}>
                             Navigate
                         </Button>
@@ -76,4 +87,6 @@ export const SiteCardStack = ({ onNavigate, onEdit }: Props) => {
         </div>
     );
 };
+
+
 
