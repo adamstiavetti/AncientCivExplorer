@@ -48,9 +48,8 @@ public class AncientSiteServiceTest {
                 .description("The world's oldest known temple")
                 .region("Anatolia")
                 .era("Pre-Pottery Neolithic")
-                .startYear(-9600)
-                .endYear(-8200)
-                .discoveryYear(1994)
+                .yearBuilt(-9600)
+                .discoveryYear("1994")
                 .credibilityLevel("Contested")
                 .siteType(siteType)
                 .build();

@@ -3,6 +3,8 @@ package com.ancientciv.explorer.controllerTest;
 
 import com.ancientciv.explorer.controller.AncientSiteController;
 import com.ancientciv.explorer.entities.AncientSite;
+import com.ancientciv.explorer.repository.AncientSiteRepository;
+import com.ancientciv.explorer.repository.SiteTypeRepository;
 import com.ancientciv.explorer.service.AncientSiteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,6 +33,13 @@ public class AncientSiteControllerTest {
 
     @MockitoBean
     private AncientSiteService ancientSiteService;
+
+    @MockitoBean
+    private SiteTypeRepository siteTypeRepository;
+
+    @MockitoBean
+    private AncientSiteRepository ancientSiteRepository;
+
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -85,9 +94,8 @@ public class AncientSiteControllerTest {
                 .description("Updated: The world's oldest known megalithic site.")
                 .region("Anatolia")
                 .era("Pre-Pottery Neolithic")
-                .startYear(-9600)
-                .endYear(-8200)
-                .discoveryYear(1994)
+                .yearBuilt(-9600)
+                .discoveryYear("1994")
                 .credibilityLevel("High")
                 .isAlternative(false)
                 .isUserSubmitted(false)

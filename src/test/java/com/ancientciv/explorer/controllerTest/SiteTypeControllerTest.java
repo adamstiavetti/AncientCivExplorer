@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
@@ -47,7 +48,7 @@ public class SiteTypeControllerTest {
     @Test
     void shouldReturnSaveSiteType() throws Exception {
         when(siteTypeService.createSite(any(SiteType.class))).thenReturn(site);
-        mockMvc.perform(post("/api/sitetypes")
+        mockMvc.perform(post("/api/siteTypes")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(site)))
                 .andExpect(status().isCreated())
@@ -57,7 +58,7 @@ public class SiteTypeControllerTest {
     @Test
     void shouldReturnAllSiteTypes() throws Exception {
         when(siteTypeService.getAllSiteTypes()).thenReturn(List.of(site));
-        mockMvc.perform(get("/api/sitetypes"))
+        mockMvc.perform(get("/api/siteTypes"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(1));
     }
