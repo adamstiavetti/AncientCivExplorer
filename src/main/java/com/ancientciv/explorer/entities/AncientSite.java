@@ -24,7 +24,7 @@ public class AncientSite {
     private String name;
 
     @Column(columnDefinition = "TEXT")
-    private String description;
+    private String teaserDescription;
 
     @Column(nullable = false)
     private double latitude;
@@ -61,5 +61,8 @@ public class AncientSite {
     @Column(updatable = false)
     private LocalDateTime createdAt;
 
+    @Column(columnDefinition = "TEXT")
+    private String fullDescription;
 
+    private String infoUrl;
 }

@@ -13,19 +13,19 @@ type Props = {
 }
 export default function SiteCard({ site, onBack}: Props){
     return (
-        <Card sx={{ height: 400, width: 260, position: 'absolute', top: 150, right: 20, zIndex: 1000 }}>
+        <Card sx={{ height: 750, width: 260, position: 'absolute', top: 150, right: 20, zIndex: 1000 }}>
             <CardMedia
                 component="img"
                 alt={site.name}
                 height="140"
-                image={site.image_url}
+                image={site.imageUrl}
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
                     {site.name}
                 </Typography>
                 <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    {site.description}
+                    {site.fullDescription}
                 </Typography>
             </CardContent>
             <CardActions>

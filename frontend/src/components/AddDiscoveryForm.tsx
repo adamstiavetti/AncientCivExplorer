@@ -77,10 +77,12 @@ export default function AddDiscoveryForm() {
     const [formData, setFormData] = useState<FormDataState>({
         id: undefined,
         name: '',
-        description: '',
+        teaserDescription: '',
+        fullDescription: '',
         latitude: 0,
         longitude: 0,
-        image_url: '',
+        imageUrl: '',
+        infoUrl: '',
         era: '',
         region: '',
         yearBuilt: 0,
@@ -226,7 +228,7 @@ export default function AddDiscoveryForm() {
                     name="image_url"
                     label="Image URL"
                     placeholder="Image URL"
-                    value={formData.image_url}
+                    value={formData.imageUrl}
                     multiline
                     onChange={handleChange}
                 />
@@ -293,7 +295,7 @@ export default function AddDiscoveryForm() {
                     label="Description"
                     placeholder="Description"
                     onChange={handleChange}
-                    value={formData.description}
+                    value={formData.teaserDescription}
                     rows={4}
                     multiline
                 />

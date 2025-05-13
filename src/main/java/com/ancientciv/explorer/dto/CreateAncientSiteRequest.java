@@ -5,10 +5,12 @@ import lombok.Data;
 @Data
 public class CreateAncientSiteRequest {
     private String name;
-    private String description;
+    private String teaserDescription;
+    private String fullDescription;
     private double latitude;
     private double longitude;
     private String imageUrl;
+    private String infoUrl;
     private String era;
     private String region;
     private Integer yearBuilt;

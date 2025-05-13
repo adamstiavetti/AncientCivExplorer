@@ -39,7 +39,8 @@ public class AncientSiteService {
         site.setName(updatedSite.getName());
         site.setLatitude(updatedSite.getLatitude());
         site.setLongitude(updatedSite.getLongitude());
-        site.setDescription(updatedSite.getDescription());
+        site.setTeaserDescription(updatedSite.getTeaserDescription());
+        site.setFullDescription(updatedSite.getFullDescription());
         site.setRegion(updatedSite.getRegion());
         site.setEra(updatedSite.getEra());
         site.setYearBuilt(updatedSite.getYearBuilt());
@@ -49,6 +50,7 @@ public class AncientSiteService {
         site.setIsUserSubmitted(updatedSite.getIsUserSubmitted());
         site.setIsDeleted(updatedSite.getIsDeleted());
         site.setImageUrl(updatedSite.getImageUrl());
+        site.setInfoUrl(updatedSite.getInfoUrl());
         site.setSiteType(updatedSite.getSiteType());
 
         return ancientSiteRepository.save(site);

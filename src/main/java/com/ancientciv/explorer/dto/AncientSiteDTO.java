@@ -2,7 +2,7 @@ package com.ancientciv.explorer.dto;
 
 public class AncientSiteDTO {
     public String name;
-    public String description;
+    public String teaserDescription;
     public double latitude;
     public double longitude;
     public String imageUrl;
@@ -11,6 +11,8 @@ public class AncientSiteDTO {
 
     public String region;
     public Integer yearBuilt;
+
+    public String fullDescription;
 
     public String discoveryYear;
 
@@ -21,6 +23,8 @@ public class AncientSiteDTO {
     public boolean isUserSubmitted;
 
     public boolean isDeleted;
+
+    public String infoUrl;
 
     public Long siteTypeId;
 }

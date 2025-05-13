@@ -1,21 +1,29 @@
-import {SiteType} from "./siteType.ts";
+import { SiteType } from "./siteType.ts";
 
 export type ancientSite = {
     id?: number;
     name: string;
-    description: string;
+
+    teaserDescription: string;
+    fullDescription: string;
+    infoUrl: string;
+
     latitude: number;
     longitude: number;
-    image_url: string;
+    imageUrl: string;
     era: string;
     region: string;
+
     yearBuilt: number;
     discoveryYear: string;
     credibilityLevel: string;
+
     isAlternative: boolean;
-    siteType?: SiteType;
-    siteTypeId: number;
     isUserSubmitted: boolean;
     isDeleted: boolean;
+
+    siteType?: SiteType;
+    siteTypeId: number;
+
     createdAt?: string;
 }

@@ -34,7 +34,8 @@ public class AncientSiteController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid SiteTypeId"));
         AncientSite site = AncientSite.builder()
                 .name(dto.name)
-                .description(dto.description)
+                .teaserDescription(dto.teaserDescription)
+                .fullDescription(dto.fullDescription)
                 .latitude(dto.latitude)
                 .longitude(dto.longitude)
                 .imageUrl(dto.imageUrl)
@@ -47,6 +48,7 @@ public class AncientSiteController {
                 .isUserSubmitted(dto.isUserSubmitted)
                 .isDeleted(dto.isDeleted)
                 .createdAt(LocalDateTime.now())
+                .infoUrl(dto.infoUrl)
                 .siteType(siteType)
                 .build();
 

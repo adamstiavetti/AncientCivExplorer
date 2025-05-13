@@ -79,19 +79,21 @@ public class DataSeeder {
             reader.readNext(); // Skip header
             while ((line = reader.readNext()) != null) {
                 String name = line[0];
-                String description = line[1];
+                String teaserDescription = line[1];
                 double latitude = Double.parseDouble(line[2]);
                 double longitude = Double.parseDouble(line[3]);
                 String imageUrl = line[4];
-                String region = line[5];
-                String era = line[6];
-                int yearBuilt = parseOrDefault(line[7], 0);
-                String discoveryYear = line[8];
-                String credibilityLevel = line[9];
-                boolean isAlternative = Boolean.parseBoolean(line[10]);
-                boolean isDeleted = Boolean.parseBoolean(line[11]);
-                boolean isUserSubmitted = Boolean.parseBoolean(line[12]);
-                int siteTypeId = Integer.parseInt(line[13]);
+                String era = line[5];
+                String region = line[6];
+                String discoveryYear = line[7];
+                String credibilityLevel = line[8];
+                boolean isAlternative = Boolean.parseBoolean(line[9]);
+                int siteTypeId = Integer.parseInt(line[10]);
+                boolean isUserSubmitted = Boolean.parseBoolean(line[11]);
+                boolean isDeleted = Boolean.parseBoolean(line[12]);
+                int yearBuilt = parseOrDefault(line[13], 0);
+                String fullDescription = line[14];
+                String infoUrl = line[15];
 
                 SiteType siteType = siteTypeRepository.findById((long) siteTypeId).orElse(null);
                 if (siteType == null){
@@ -100,22 +102,22 @@ public class DataSeeder {
                 }
 
                     AncientSite site = AncientSite.builder()
-
                             .name(name)
-                            .description(description)
+                            .teaserDescription(teaserDescription)
                             .latitude(latitude)
                             .longitude(longitude)
                             .imageUrl(imageUrl)
-                            .region(region)
                             .era(era)
-                            .yearBuilt(yearBuilt)
+                            .region(region)
                             .discoveryYear(discoveryYear)
                             .credibilityLevel(credibilityLevel)
                             .isAlternative(isAlternative)
-                            .isDeleted(isDeleted)
-                            .isUserSubmitted(isUserSubmitted)
                             .siteType(siteType)
-                            .createdAt(LocalDateTime.now())
+                            .isUserSubmitted(isUserSubmitted)
+                            .isDeleted(isDeleted)
+                            .yearBuilt(yearBuilt)
+                            .fullDescription(fullDescription)
+                            .infoUrl(infoUrl)
                             .build();
 
                     ancientSiteRepository.save(site);

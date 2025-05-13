@@ -5,7 +5,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { ancientSite } from '../types/ancientSite.ts';
 import {deleteAncientSite, fetchAncientSites} from '../services/AncientSiteService.ts';
 const ITEM_HEIGHT = 60;
-const EXPANDED_HEIGHT = 270;
+const EXPANDED_HEIGHT = 230;
 
 type Props = {
     site: ancientSite[]
@@ -58,7 +58,7 @@ export const SiteCardStack = ({ onNavigate, onEdit, onSelectSite }: Props) => {
                         <Typography>{site.name}</Typography>
                     </AccordionSummary>
                     <AccordionDetails style={{ whiteSpace: 'normal', overflowWrap: 'break-word' }}>
-                        {site.description}
+                        {site.teaserDescription}
                     </AccordionDetails>
                     <AccordionActions>
                         <Button onClick={() => handleDelete(site.id!)}>Delete</Button>
