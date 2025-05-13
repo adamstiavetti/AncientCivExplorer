@@ -6,19 +6,36 @@ import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import {ancientSite} from "../types/ancientSite.ts";
+import {useEffect, useState} from "react";
+import {fetchSiteImage} from "../api/pexelsService.ts";
 
 type Props = {
     site: ancientSite;
     onBack: () => void;
 }
 export default function SiteCard({ site, onBack}: Props){
+    const [imageUrl, setImageUrl] = useState('/fallback.jpg');
+
+    useEffect(() => {
+        fetchSiteImage(site.name).then(setImageUrl)
+    }, [site.name]);
+
     return (
-        <Card sx={{ height: 750, width: 260, position: 'absolute', top: 150, right: 20, zIndex: 1000 }}>
+        <Card sx={{ maxHeight: 750, maxWidth: 360, position: 'absolute', top: 100, right: 20, zIndex: 1000, margin: "0, auto", padding: "0.1em" }}>
             <CardMedia
+                src={imageUrl}
                 component="img"
                 alt={site.name}
-                height="140"
-                image={site.imageUrl}
+                height="250"
+                image={imageUrl}
+                sx={{
+                    padding: "1em 1em 0 1em",
+                    objectFit: "cover",
+                    width: "100%",
+                    height: 250,
+                    borderRadius: "4px",
+                    overflow: "hidden"
+                }}
             />
             <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
@@ -29,9 +46,8 @@ export default function SiteCard({ site, onBack}: Props){
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">Share</Button>
-                <Button size="small">Learn More</Button>
-                <Button onClick={onBack}>Back to Map</Button>
+                <Button href={site.infoUrl} target="_blank" size="small">Learn More</Button>
+                <Button style={{marginLeft: 120}} onClick={onBack}>Back to Map</Button>
             </CardActions>
         </Card>
     );

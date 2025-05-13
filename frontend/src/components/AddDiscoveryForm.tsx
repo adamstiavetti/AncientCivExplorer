@@ -223,15 +223,15 @@ export default function AddDiscoveryForm() {
                     onChange={handleChange}
                 />
 
-                <TextField
-                    id="imageUrl"
-                    name="image_url"
-                    label="Image URL"
-                    placeholder="Image URL"
-                    value={formData.imageUrl}
-                    multiline
-                    onChange={handleChange}
-                />
+                {/*<TextField*/}
+                {/*    id="imageUrl"*/}
+                {/*    name="image_url"*/}
+                {/*    label="Image URL"*/}
+                {/*    placeholder="Image URL"*/}
+                {/*    value={formData.imageUrl}*/}
+                {/*    multiline*/}
+                {/*    onChange={handleChange}*/}
+                {/*/>*/}
 
                 <TextField
                     id="era"

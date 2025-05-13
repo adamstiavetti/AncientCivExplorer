@@ -75,10 +75,10 @@ export const SiteCardStack = ({ onNavigate, onEdit, onSelectSite }: Props) => {
     };
 
     return (
-        <div style={{ height: 400, width: 260, position: 'absolute', top: 150, right: 20, zIndex: 1000, textAlign: 'center'  }}>
+        <div style={{ height: 500, width: 260, position: 'absolute', top: 120, right: 40, zIndex: 1000, textAlign: 'center'  }}>
 
             <List
-                height={600}
+                height={700}
                 width={270}
                 itemCount={sites.length}
                 itemSize={getItemSize}
