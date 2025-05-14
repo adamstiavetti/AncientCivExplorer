@@ -113,6 +113,7 @@ export default function AddDiscoveryForm() {
         const { name, value, type } = event.target;
         const checked = type === "checkbox" ? (event.target as HTMLInputElement).checked : undefined;
 
+
         if (name === "yearBuiltDisplay") {
             setFormData(prev => ({ ...prev, yearBuiltDisplay: value }));
 
@@ -151,8 +152,8 @@ export default function AddDiscoveryForm() {
         console.log("Submitting Form Data: ", formData)
 
         if (isEditing) {
-            console.log("🔥 formData about to be submitted", formData);
-            console.log("✅ formData.id is", formData.id);
+            console.log("formData about to be submitted", formData);
+            console.log("formData.id is", formData.id);
             await updateAncientSite(formData)
         } else {
             await createAncientSite(formData)
@@ -168,16 +169,16 @@ export default function AddDiscoveryForm() {
     };
 
     return (
-        <div>
+        <div style={{ height: '90vh', overflowY: 'auto'}}>
             <Header/>
         <Box
             component="form"
-            sx={{ '& .MuiTextField-root': { m: 1, width: '50%' },marginTop: "100px", display: 'flex', flexDirection: 'column', alignItems: 'center', gap:0 }}
+            sx={{ '& .MuiTextField-root': { m: 1, width: '50%' }, marginTop: "70px", display: 'flex', flexDirection: 'column', alignItems: 'center', gap:0 }}
             noValidate
             autoComplete="off"
             onSubmit={handleSubmit}
         >
-            <h2>{isEditing ? "Edit Ancient Site" : "New Ancient Site"}</h2>
+            <h2 style={{fontWeight: 'bold', fontSize: 'larger'}}>{isEditing ? "Edit Ancient Site" : "New Ancient Site"}</h2>
                 <TextField
                     id="discoveryName"
                     name="name"
@@ -290,15 +291,36 @@ export default function AddDiscoveryForm() {
                 />
 
                 <TextField
-                    id="description"
-                    name="description"
-                    label="Description"
-                    placeholder="Description"
+                    id="teaserDescription"
+                    name="teaserDescription"
+                    label="Short Site Summary"
+                    placeholder="Short Site Summary"
                     onChange={handleChange}
                     value={formData.teaserDescription}
                     rows={4}
                     multiline
                 />
+
+            <TextField
+                id="fullDescription"
+                name="fullDescription"
+                label="Full Site Description"
+                placeholder="Full Site Description"
+                onChange={handleChange}
+                value={formData.fullDescription}
+                rows={4}
+                multiline
+            />
+
+            <TextField
+                id="infoUrl"
+                name="infoUrl"
+                label="Informational URL"
+                placeholder="Informational URL"
+                value={formData.infoUrl}
+                multiline
+                onChange={handleChange}
+            />
 
             <FormControl component="fieldset">
                 <FormLabel component="legend">Alternative Historical Theory</FormLabel>

@@ -8,21 +8,22 @@ const ITEM_HEIGHT = 60;
 const EXPANDED_HEIGHT = 230;
 
 type Props = {
-    site: ancientSite[]
+    sites: ancientSite[];
+    query: string;
     onNavigate: (lat: number, lon: number, site: ancientSite) => void;
     onEdit: (id: number | undefined) => void;
     onDelete: (id: number) => void;
     onSelectSite: (site: ancientSite) => void;
 };
 
-export const SiteCardStack = ({ onNavigate, onEdit, onSelectSite }: Props) => {
+export const SiteCardStack = ({ sites, query, onNavigate, onEdit, onSelectSite }: Props) => {
     const listRef = useRef<List>(null);
     const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-    const [sites, setSites] = useState<ancientSite[]>([]);
 
-    useEffect(() => {
-        fetchAncientSites().then(setSites);
-    }, []);
+
+    const filteredSites = sites.filter(site =>
+    site.name.toLowerCase().includes(query.toLowerCase()) ||
+    site.siteType?.name.toLowerCase().includes(query.toLowerCase()));
 
     const getItemSize = (index: number) =>
         index === expandedIndex ? EXPANDED_HEIGHT : ITEM_HEIGHT;
@@ -46,10 +47,10 @@ export const SiteCardStack = ({ onNavigate, onEdit, onSelectSite }: Props) => {
     }
 
     const Row = ({ index, style }: { index: number; style: React.CSSProperties }) => {
-        const site = sites[index];
+        const site = filteredSites[index];
 
         return (
-            <div style={style} key={site.id}>
+            <div style={style}  key={site.id}>
                 <Accordion
                     expanded={expandedIndex === index}
                     onChange={() => handleToggle(index)}
@@ -75,16 +76,16 @@ export const SiteCardStack = ({ onNavigate, onEdit, onSelectSite }: Props) => {
     };
 
     return (
-        <div style={{ height: 500, width: 260, position: 'absolute', top: 120, right: 40, zIndex: 1000, textAlign: 'center'  }}>
+        <div style={{ height: 500, width: 260, position: 'absolute', top: 120, right: 40, zIndex: 1000, textAlign: 'center', gap: 0  }}>
 
             <List
                 height={700}
                 width={270}
-                itemCount={sites.length}
+                itemCount={filteredSites.length}
                 itemSize={getItemSize}
                 itemData={""}
                 ref={listRef}
-                style={{ color: "black", backgroundColor: "black",}}
+                // style={{ color: "black", backgroundColor: "black",}}
             >
                 {Row}
             </List>

@@ -1,4 +1,4 @@
-
+import ancientcivfallback from '../assets/ancientcivfallback.png'
 
 const PEXELS_API_KEY = import.meta.env.VITE_PEXELS_API_KEY;
 
@@ -11,9 +11,9 @@ export const fetchSiteImage = async (siteName: string): Promise<string> => {
         });
 
         const data = await response.json();
-        return data.photos?.[0]?.src?.medium || '/fallback.jpg';
+        return data.photos?.[0]?.src?.medium || ancientcivfallback;
     } catch (error) {
         console.error("Error fetching site image", error);
-        return '/fallback.jpg'
+        return ancientcivfallback
     }
 }

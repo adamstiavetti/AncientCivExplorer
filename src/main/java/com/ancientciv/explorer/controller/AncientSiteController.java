@@ -67,9 +67,10 @@ public class AncientSiteController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/search")
-    public List<AncientSite> searchSites(@RequestParam("query") String query) {
-    return ancientSiteService.searchByNameOrType(query);
+    @GetMapping("/sites/search")
+    public ResponseEntity<List<AncientSite>> searchSites(@RequestParam("query") String query) {
+        List<AncientSite> results = ancientSiteService.searchByNameOrType(query);
+    return ResponseEntity.ok(results);
     }
 
     @PutMapping("/{id}")
@@ -82,4 +83,5 @@ public class AncientSiteController {
         ancientSiteService.deleteSiteById(id);
         return ResponseEntity.noContent().build();
     }
+
 }

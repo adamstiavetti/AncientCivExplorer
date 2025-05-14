@@ -13,8 +13,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import {ThemeProvider, createTheme} from "@mui/material";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-
-import {searchAncientSites} from "../services/AncientSiteService.ts";
+import * as React from "react";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -66,11 +65,20 @@ const darkTheme = createTheme({
     },
 });
 
-export default function Header() {
+type Props = {
+    onSearchChange: (query: string) => void;
+};
+
+export default function Header({ onSearchChange }: Props) {
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const [query, setQuery] = useState("");
+    // const [query, setQuery] = useState("");
     const open = Boolean(anchorEl)
+
+    const handleChange= (e: React.ChangeEvent<HTMLInputElement>) => {
+        onSearchChange(e.target.value);
+    }
+
     const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
     };
@@ -78,15 +86,6 @@ export default function Header() {
     const handleClose = () => {
         setAnchorEl(null);
     }
-
-    const handleSearch = async (e: React.FormEvent) => {
-        e.preventDefault();
-
-        const results = await searchAncientSites(query);
-
-        navigate(`/search-results`, { state: { results } });
-
-    };
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -132,19 +131,19 @@ export default function Header() {
                     >
                         Ancient Earth Explorer
                     </Typography>
-                    <form onSubmit={handleSearch}>
+                    {/*<form onSubmit={handleSearch}>*/}
                     <Search>
                         <SearchIconWrapper>
                             <SearchIcon />
                         </SearchIconWrapper>
                         <StyledInputBase
                             placeholder="Search…"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
+                            // value={query}
+                            onChange={handleChange}
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </Search>
-                    </form>
+                    {/*</form>*/}
                 </Toolbar>
             </AppBar>
             </ThemeProvider>
